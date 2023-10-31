@@ -57,7 +57,21 @@ The reward $R^{\pi(s)}_{s s'}$ is also computed given $\pi(s)$.
 % be $1$). Note that the policy is initialised to such that each state
 % starts with bias towards the value
 
-The optimal policy (action) is determined for each state
+The optimal policy (action) is determined for each state using a greedy
+approach - the best policy after the update is the policy the action
+that maximises the value of 
+$\sum_{s'} P^a_{ss'}[R^a_{ss'} + \gamma V(s')]$ as defined in the lectures.
+Here the policy is represented as a 2D matrix of shape 
+$(number of states, number of actions)$. Each row of the matrix 
+defines the policy of that given state by using a bit set where there 
+is exactly one index with the value $1$ (and the rest is $0$) 
+and a value of $1$ at an index means that given index is the optimal
+policy for that state. 
+
+Note that the initialisation of $\pi(s)$ is set to $[0,1,0,0]$ which 
+represents the starting policy for each state pointing east.
+This is arbitary and mainly set to satisfy the above design of the 
+policy - each row much have exactly a single $1$. 
 
 % TODO: finish this section
 
@@ -165,5 +179,15 @@ is the expected optimal path to the end point.
 % % TODO
 % (When $p < 0.25$ this effect is exaggerated and the expected policy 
 % is not achieved.)
+
+The value of $\gamma$ does not significantly affect the 
+result of the policy.
+However it does effect the resultant value function:
+lower gamma, results in lower the value function having a smaller 
+range. This is to be expected given the value update is given by 
+$V(s) \leftarrow \max_a \sum_{s'} P^a_{ss'}[R^a_{ss'} + \gamma V(s')]$.
+Small $\gamma$ means the impact of $V(s')$ is smaller resulting the 
+the behaviour seen.
+
 
 \end{document}
