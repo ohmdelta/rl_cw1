@@ -19,7 +19,9 @@
 \begin{document}
 \maketitle
 
-Note that the 
+Note that the many of the formulas and algorithms referenced in the 
+report are from the course notes.
+
 \section*{Q1: Dynamic programming}
 \subsection*{1}
 Policy Iteration was used here - policy iteration was chosen as 
@@ -126,13 +128,42 @@ The optimal policy (action) is determined for each state
 
 When the probability $p = 0.25$, the transition matrix probability
 of success is $0.25$ and the probability of going in another direction
-is also $0.25$. 
-This results in moving in another direction the same probability 
-as the current optimal policy. Consider the policy update $\pi(s) \leftarrow
-argmax_a \sum_{s'} P^a_{ss'}[R^a_{ss'} + \gamma V(s')]$: the value $P^a_{ss'}$ 
-will be biggest when the 
-% TODO
-(When $p < 0.25$ this effect is exaggerated and the expected policy 
-is not achieved.)
+is also $0.25$.
+Both diagrams at $p = 0.25$ show that the policy $\pi(s) = North \forall s \in S$.
+This is to be expected as
+$ \forall s, s' \in \mathcal{S}, \forall a \in \mathcal{A}, P^a_{ss'} = 0.25$ given 
+the previous conditions. 
+
+Consider the value evaluation 
+$V(s) \leftarrow \max_a \sum_{s'} P^a_{ss'}[R^a_{ss'} + \gamma V(s')]$
+the policy update $\pi(s) \leftarrow argmax_a \sum_{s'} P^a_{ss'}[R^a_{ss'} + \gamma V(s')]$.
+Both become $V(s) \leftarrow \frac{1}{4}\max_a \sum_{s'} [R^a_{ss'} + \gamma V(s')]$
+and $\pi(s) \leftarrow argmax_a \sum_{s'} [R^a_{ss'} + \gamma V(s')]$
+respectively.
+In this problem, $R^a_{ss'} = R^b_{ss'}, \forall a, b \in \mathcal{A}$. 
+As such, it can be seen that the policy update of $\pi(s)$ is 
+not effected by the value of the action chosen. Since numpy's
+$argmax$ function is chosen to be used to update the function, 
+it chooses the lowest index which in this case is $0$ and corresponds
+to the action $North$. 
+
+Now consider when $p < 0.25$.
+In this scenario, the probability of successfully traversing the the
+optimal direction is the least out of all the possible actions.
+As such, instead of the policy determining the optimal path from the
+start to the end point, the policy can be interpreted as the worst
+or least optimal action. This can clearly be seen from the flow 
+of the arrows, point away from the goal state and pointing to either
+the start states or other absorbing states. 
+
+When $p > 0.25$, the behaviour is as expected: the policy derived
+is the expected optimal path to the end point.
+% This results in moving in another direction the same probability 
+% as the current optimal policy. Consider the policy update $\pi(s) \leftarrow
+% argmax_a \sum_{s'} P^a_{ss'}[R^a_{ss'} + \gamma V(s')]$: the value $P^a_{ss'}$ 
+% will be biggest when the 
+% % TODO
+% (When $p < 0.25$ this effect is exaggerated and the expected policy 
+% is not achieved.)
 
 \end{document}
