@@ -28,4 +28,16 @@
     \centering
     \includegraphics[width=\textwidth]{assets/td/td_analysis.png}        
     \caption{Temporal Difference analysis}
+    \label{figure:temporal difference analysis}
 \end{figure} 
+
+In figure \ref{figure:temporal difference analysis}, the total reward
+overtime is plotted for different configurations of the learning rate
+(function for $\alpha_t$) and epsilon. The data smoothed out 
+using a moving average make the data more legible.
+
+It can be seen that having a high epsilon results in a faster 
+convergence to the optimal policy. This is to be expected as 
+low epsilon results in larger explorations of the environment,
+whereas higher epsilon is more greedy - taking the current found 
+optimal path more frequently. 

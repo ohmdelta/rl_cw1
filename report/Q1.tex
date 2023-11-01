@@ -5,46 +5,50 @@ report are from the course notes.
 \section*{Q1: Dynamic programming}
 \subsection*{1}
 Policy Iteration was used here - policy iteration was chosen as 
-it is in general faster.
-A small tolerance ($tolerance = 0.00001$) was set for the 
+it is in general faster than value iteration.
+A small tolerance ($tolerance = 10^{-12}$) was set for the 
 stopping condition of the policy evaluation step. This 
 tolerance was chosen to be small enough as to confirm convergence 
-of the policy evaluation. Especially as the rewards are to the 
-nearest integer the tolerance is sufficiently small.
+of the policy evaluation (consider that the rewards are to the 
+nearest integer as well).
 
-The Policy Iteration implementation is split into two
-stages: the policy evaluation and the policy improvement stages.
-Both of these are wrapped in a while loop that only terminates 
-when the policy improvement stage does not update the policy 
-(the flag $policy_stable$ is set to false if the policy is updated
-in policy improvement; otherwise is true and will terminate).
+% Both the policy evaluation and the policy improvement stages are 
+% wrapped in a while loop that only terminates when the policy 
+% improvement stage does not update the policy.
+% (the flag $policy\_stable$ is set to false if the policy is updated
+% in policy improvement; otherwise is true and will terminate).
 
 For the policy evaluation, $\Delta$ is initialised to $10 * \theta$ 
 where $\theta = tolerance$. This ensures that the policy evaluation
-loop will be entered. 
-There is a nested loop in Policy Evaluation, the outer one for looping 
+loop will be entered as $\Delta > \theta > 0$. 
+Nested loop in Policy Evaluation: the outer one for looping 
 through all available states and the inner for updating the value 
 for the selected state, ie $V(s)$.
 The optimal policy given a state for the current iteration $\pi(s)$,
 is computed simply by finding the index with the largest value
 in the policy matrix corresponding to state.
-The current $V$ is cached as each state requires the original
-$V(s')$ to be able update the current $V(s)$.
+The current $V$ is cached before the value update.  
+% as each state requires the original
+% $V(s')$ to be able update the current $V(s)$.
 $P^{\pi(s)}_{s s'}$ is the value from the transition matrix. 
 The reward $R^{\pi(s)}_{s s'}$ is also computed given $\pi(s)$.
 % This ensures that only the chosen action has a non zero probility
-% (note that the policy is greedy, so only one value in the policy should 
-% be $1$). Note that the policy is initialised to such that each state
+% (note that the policy is greedy, so only one value in the 
+% policy should 
+% be $1$). Note that the policy is 
+% initialised to such that each state
 % starts with bias towards the value
 
-The optimal policy (action) is determined for each state using a greedy
-approach - the best policy after the update is the policy the action
-that maximises the value of 
-$\sum_{s'} P^a_{ss'}[R^a_{ss'} + \gamma V(s')]$ as defined in the lectures.
+The optimal policy (action) is determined for each state using a 
+greedy approach. 
+% - the best policy after the update is the
+% policy the action that maximises the value of 
+% $\sum_{s'} P^a_{ss'}[R^a_{ss'} + \gamma V(s')]$ as defined 
+% in the lectures. 
 Here the policy is represented as a 2D matrix of shape 
 $(number of states, number of actions)$. Each row of the matrix 
-defines the policy of that given state by using a bit set where there 
-is exactly one index with the value $1$ (and the rest is $0$) 
+defines the policy of that given state by using a bit set where 
+there is exactly one index with the value $1$ (and the rest is $0$) 
 and a value of $1$ at an index means that given index is the optimal
 policy for that state. 
 
@@ -58,13 +62,13 @@ policy - each row much have exactly a single $1$.
 \subsection*{2}
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{assets/dp/dp_optimal_policy.png}        
         \caption{Dynamic Programming Policy}
     \end{subfigure}
     \hfill 
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{assets/dp/dp_value_function.png}        
         \caption{Dynamic Programming Value FUnction}
@@ -75,50 +79,50 @@ policy - each row much have exactly a single $1$.
 % \break
 \subsection*{3}
 
-\begin{landscape}
+% \begin{landscape}
 \begin{center}
-    \begin{tabular}{c || c  c  c}
+    \begin{tabular}{c | c  c  c}
         & & $\gamma$ & \\
         & 0.1 & 0.25 & 0.5 \\
-        \hline \hline \\
+        \hline \\
         0.2 & 
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.1_gamma_0.2_policy.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.1_gamma_0.2_policy.png}
         & 
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.25_gamma_0.2_policy.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.25_gamma_0.2_policy.png}
         & 
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.5_gamma_0.2_policy.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.5_gamma_0.2_policy.png}
         \\
         0.8 &
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.1_gamma_0.8_policy.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.1_gamma_0.8_policy.png}
         & 
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.25_gamma_0.8_policy.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.25_gamma_0.8_policy.png}
         &
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.5_gamma_0.8_policy.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.5_gamma_0.8_policy.png}
     \end{tabular}        
 \end{center}
 
 \begin{center}
-    \begin{tabular}{c || c  c  c}
+    \begin{tabular}{c | c  c  c}
         & & $\gamma$ & \\
         & 0.1 & 0.25 & 0.5 \\
-        \hline \hline \\
+        \hline  \\
         0.2 & 
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.1_gamma_0.2_value.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.1_gamma_0.2_value.png}
         & 
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.25_gamma_0.2_value.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.25_gamma_0.2_value.png}
         & 
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.5_gamma_0.2_value.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.5_gamma_0.2_value.png}
         \\
         \centering 0.8 &
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.1_gamma_0.8_value.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.1_gamma_0.8_value.png}
         & 
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.25_gamma_0.8_value.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.25_gamma_0.8_value.png}
         &
-            \includegraphics[width=0.35\textheight]{assets/dp/analysis/prob_0.5_gamma_0.8_value.png}
+            \includegraphics[width=0.25\textwidth]{assets/dp/analysis/prob_0.5_gamma_0.8_value.png}
     \end{tabular}        
 \end{center}
-\end{landscape}
-\break
+% \end{landscape}
+% \break
 
 When the probability $p = 0.25$, the transition matrix probability
 of success is $0.25$ and the probability of going in another direction
