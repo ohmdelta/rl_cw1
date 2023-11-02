@@ -68,3 +68,13 @@ convergence to the optimal policy. This is to be expected as
 low epsilon results in larger explorations of the environment,
 whereas higher epsilon is more greedy - taking the current found 
 optimal path more frequently. 
+
+Also consider the $\alpha$'s - it can be seen that when $\alpha$ is
+constant (not Robbins-Munro) the convergence is fastest, whereas
+when $a_t =\frac{1}{(1 + t)^2}$ there is no convergence to the 
+optimal reward. When $a_t =\frac{1}{(1 + t)^2}$ the step sizes
+become too small too quickly to update $Q$ (this does not 
+satisfy Robbins-Munro). $\alpha$ constant also does not satisfy 
+Robbins-Munro, however, in this scenario appears to be converge
+to the correct policy. This may be the fairly simple nature the setup
+and relatively small state-action space.
