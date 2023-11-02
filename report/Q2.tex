@@ -36,9 +36,9 @@ so a large number of episodes should be taken.
 
 The policy is initialised to be equally likely for each action 
 given a state. This ensures that that the sum of the probabilities
-representing the policy in each state are equal to 1 which is a 
+representing the policy in each state are equal to $1$ which is a 
 requirement for numpy choose function (for generating the episode).
-The policy can be set arbitarily but setting it is simplist and
+The policy can be set arbitrarily but setting it is simplist and
 reduces a small amount of bias of exploration at the start.
 Note that there is also the $return\_samples$ matrix which represents
 the number of samples $Q$ has experienced at a corresponding 
@@ -77,5 +77,5 @@ return.
 Figure \ref{figure: total reward vs episode mc} shows the mean
 total reward and standard deviation across each episode over 2000
 episodes. Inidividual runs are not shown for clarity. Note that
-the total reward function approaches 
+the total reward function approaches a limit % TODO
 

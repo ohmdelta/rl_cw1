@@ -1,6 +1,33 @@
 \section*{Q3: Temporal Difference}
 \subsection*{1}
 
+SARSA was chosen. SARSA is on policy meaning that the current
+policy will be updated and hence is generally "safer" meaning 
+more reliable updating. Furthermore, on-policy can be argued to 
+be better in this scenario given that it's not advantageous to
+explore policies that result in the incorrect absorbing states
+or into a wall. 
+
+For SARSA to converge to the optimal value function, the policies
+need to be a GLIE sequence and the step sizes of $\alpha$ must be 
+Robbins-Munro. The default value for $a_t$ is $\frac{1}{t+1}$ which 
+satisfies the Robbins-Munro condition (this can be substituted in 
+for a different policies for $a_t$ for comparison).
+
+Similar to Monte Carlo, a large number of episodes are sampled 
+to be GLIE. Here the default is $5000$ which should provide 
+sufficient coverage. 
+
+The Q here is initialised to be random values (Q can be 
+set arbitrarily). 
+For SARSA, the initialisation of Q also needs
+to have the behaviour that at the absorbing states 
+$Q[end, \cdot] = 0$. The game does not
+provide the absorbing states, so before the Q is updated 
+the next state $s'$ is checked to determine if it is an absorbing
+state. If $s'$ is an absorbing state then the $Q[s', \cdot] = 0$
+so the update becomes $Q[s, a] = Q[s, a] + \alpha_t [R - Q[s,a]]$.
+
 % TODO
 
 \subsection*{2}
